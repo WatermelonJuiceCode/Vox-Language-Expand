@@ -1,0 +1,87 @@
+{
+  "name": "vox-language",
+  "publisher": "WatermelonCode",
+  "icon": "./Vox Logo.png",
+  "displayName": "Vox",
+  "version": "1.4.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:vox"
+  ],
+  "license": "MIT",
+  "contributes": {
+    "languages": [
+      {
+        "id": "vox",
+        "aliases": ["Vox", "vox"],
+        "extensions": [".v", ".vox", ".voxs"], 
+        "icon": {
+          "dark": "./Vox Logo.png", 
+          "light": "./Vox Logo.png"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "vox",
+        "path": "./vox.code-snippets"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Vox",
+      "properties": {
+        "vox.compilerPath": {
+          "type": "string",
+          "default": "",
+          "description": "Vox 编译器（可执行文件 vox.exe）的完整路径，留空则默认使用系统环境变量中的 vox"
+        },
+        "vox.codeParentDirectory": {
+          "type": "string",
+          "default": "",
+          "description": "Vox 模块导入根目录"
+        },
+        "vox.diagnosticLanguage": {
+          "type": "string",
+          "enum": ["en", "zh-CN"],
+          "enumDescriptions": ["English", "简体中文"],
+          "default": "en",
+          "description": "Diagnostic message language / 诊断消息语言"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "vox.runFile",
+        "title": "Run Vox File",
+        "icon": "$(play)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vox.runFile",
+        "key": "f5",
+        "when": "editorTextFocus && (resourceExtname == .v || resourceExtname == .vox || resourceExtname == .voxs || editorLangId == vox)"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "vox.runFile",
+          "when": "resourceExtname == .v || resourceExtname == .vox || resourceExtname == .voxs || editorLangId == vox",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vox.runFile",
+          "when": "resourceExtname == .v || resourceExtname == .vox || resourceExtname == .voxs || editorLangId == vox",
+          "group": "1_run"
+        }
+      ]
+    }
+  }
+}
